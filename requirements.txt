@@ -1,0 +1,8 @@
+streamlit
+python-dotenv
+groq
+langchain
+langchain-core
+langgraph
+requests
+pillow
