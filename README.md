@@ -85,6 +85,7 @@ Example response:
 Order #12 confirmed!
 'Organic Raw Honey' has been successfully ordered for $14.99.
 Your order will arrive in 3-5 business days.
+
 👤 Multi-User Support
 
 ShopAI supports separate user accounts.
