@@ -1,1118 +1,569 @@
-\# 🛍️ ShopAI – Agentic AI Shopping Assistant
+# 📦 ShopAI – Agentic AI Shopping Assistant
 
+An AI-powered shopping assistant built with **Python, LangChain, LangGraph, Groq, SQLite, and Streamlit**.
 
+ShopAI can search products, compare prices, check ratings and reviews, remember user preferences, access order history, place orders, and even find similar products from an uploaded image.
 
-ShopAI is an \*\*Agentic AI-powered shopping assistant\*\* built with Python, LangChain/LangGraph, Groq, SQLite, and Streamlit.
+---
 
+## 🚀 Features
 
+### 🤖 Agentic AI
 
-It allows users to interact with a store using natural language to \*\*search products, compare prices, check ratings, manage shopping preferences, view order history, place orders, and discover similar products using images\*\*.
+ShopAI uses an AI agent that decides which tool to use based on the user's request.
 
+The agent can:
 
+- Search for products
+- Filter products by price
+- Check product ratings
+- Read customer reviews
+- Remember shopping preferences
+- Retrieve previous orders
+- Place orders
+- Analyze product images
+- Find similar products
+- Handle multiple users
+- Reject unrelated queries using guardrails
 
-The project demonstrates how an AI agent can combine an LLM with external tools, persistent user memory, databases, guardrails, and vision models to perform real-world tasks.
+---
 
+### 🔎 Product Search
 
-
-\---
-
-
-
-\## 🚀 Features
-
-
-
-\### 🤖 Agentic AI
-
-\- Natural language shopping conversations
-
-\- LLM-powered tool selection
-
-\- Multi-step task execution
-
-\- Database-backed actions
-
-
-
-\### 🔎 Product Search
-
-Search products using natural language and requirements such as price and organic preference.
-
-
+Users can search for products using natural language.
 
 Example:
 
+> Find organic honey under $20
+
+The agent can identify the user's requirements and call the appropriate product-search tool.
+
+---
+
+### ⭐ Ratings & Reviews
+
+Users can ask about product ratings and reviews.
+
+Example:
+
+> What is the rating of Organic Raw Honey?
+
+The agent retrieves the relevant information from the database and presents it to the user.
+
+---
+
+### 🧠 Persistent User Memory
+
+ShopAI remembers user-specific information such as:
+
+- Previous orders
+- Organic product preferences
+- Maximum preferred price
+- Current user session
+
+Example:
+
+> What are my shopping preferences?
+
+The assistant can retrieve the user's saved preferences from SQLite.
+
+---
+
+### 🛒 Order Management
+
+Users can place orders directly through the assistant.
+
+Example:
+
+> Order product 1
+
+The system creates an order in the SQLite database and returns an order confirmation.
+
+Example response:
+
 ```text
+Order #12 confirmed!
+'Organic Raw Honey' has been successfully ordered for $14.99.
+Your order will arrive in 3-5 business days.
+👤 Multi-User Support
 
-Find organic honey under $20
+ShopAI supports separate user accounts.
 
-```
+Each user can have their own:
 
+User ID
+Name
+Preferences
+Order history
 
+This prevents one user's shopping history from being mixed with another user's data.
 
-\### ⭐ Product Ratings \& Reviews
+🛡️ Guardrails
 
-Ask the assistant to check product ratings before purchasing.
+The application includes a shopping-focused guardrail system.
 
+If a user asks an unrelated question, the assistant responds with a message explaining that it is designed for shopping-related tasks.
 
+Example:
 
-\### 🧠 Persistent User Memory
+User:
+Who invented the telephone?
 
-Stores user-specific information such as:
-
-\- Previous orders
-
-\- Organic product preference
-
-\- Maximum preferred price
-
-\- User account information
-
-
-
-\### 🛒 Checkout \& Orders
-
-Users can place orders directly through the AI assistant. Orders are associated with the current user.
-
-
-
-\### 👤 Multi-User Support
-
-Each user has a separate account, order history, and shopping preferences.
-
-
-
-\### 🛡️ Shopping Guardrails
-
-A shopping-focused guardrail keeps unrelated requests outside the shopping agent.
-
-
-
-\### 🖼️ Image-Based Product Discovery
+ShopAI:
+I'm your shopping assistant, so I can help you find products,
+compare prices, check ratings, remember your preferences,
+and place orders. What would you like to shop for?
+🖼️ Image-Based Product Discovery
 
 Users can upload a product image and ask the assistant to find similar products.
 
-
-
-\### 📊 Agent Evaluation
-
-Evaluation tests verify whether the agent selects the correct tool for different requests.
-
-
-
-\---
-
-
-
-\# 🏗️ System Architecture
-
-
-
-```text
-
-&#x20;                        ┌─────────────────────┐
-
-&#x20;                        │      Streamlit      │
-
-&#x20;                        │    Web Interface    │
-
-&#x20;                        └──────────┬──────────┘
-
-&#x20;                                   │
-
-&#x20;                                   ▼
-
-&#x20;                        ┌─────────────────────┐
-
-&#x20;                        │     Guardrails      │
-
-&#x20;                        │  Shopping Request   │
-
-&#x20;                        │      Filtering      │
-
-&#x20;                        └──────────┬──────────┘
-
-&#x20;                                   │
-
-&#x20;                                   ▼
-
-&#x20;                        ┌─────────────────────┐
-
-&#x20;                        │    ShopAI Agent     │
-
-&#x20;                        │                     │
-
-&#x20;                        │ LangChain /         │
-
-&#x20;                        │ LangGraph           │
-
-&#x20;                        └──────────┬──────────┘
-
-&#x20;                                   │
-
-&#x20;             ┌─────────────────────┼─────────────────────┐
-
-&#x20;             │                     │                     │
-
-&#x20;             ▼                     ▼                     ▼
-
-&#x20;     ┌───────────────┐     ┌───────────────┐     ┌───────────────┐
-
-&#x20;     │    Product    │     │     User      │     │    Vision     │
-
-&#x20;     │     Tools     │     │    Memory     │     │     Model     │
-
-&#x20;     └───────┬───────┘     └───────┬───────┘     └───────┬───────┘
-
-&#x20;             │                     │                     │
-
-&#x20;             └─────────────────────┼─────────────────────┘
-
-&#x20;                                   │
-
-&#x20;                                   ▼
-
-&#x20;                        ┌─────────────────────┐
-
-&#x20;                        │       SQLite        │
-
-&#x20;                        │      Database       │
-
-&#x20;                        └─────────────────────┘
-
-```
-
-
-
-\---
-
-
-
-\# 🧰 Tech Stack
-
-
-
-| Technology | Purpose |
-
-|---|---|
-
-| Python | Core programming language |
-
-| LangChain | LLM and tool orchestration |
-
-| LangGraph | Agent runtime and workflow |
-
-| Groq | LLM inference |
-
-| GPT-OSS-120B | General-purpose shopping agent |
-
-| Qwen3.8-27B | Vision-based product analysis |
-
-| Streamlit | Web application interface |
-
-| SQLite | Local database |
-
-| SQL | Database queries |
-
-| Python-dotenv | Environment variable management |
-
-| Requests | API communication |
-
-| Pillow | Image processing |
-
-
-
-\---
-
-
-
-\# 📁 Project Structure
-
-
-
-```text
-
-ShopAI\_project/
-
+The system:
+
+Receives the uploaded image
+Sends the image to a vision model
+Extracts product characteristics
+Generates a search query
+Searches the product database
+Returns similar products
+
+This allows users to search for products using images instead of only text.
+
+📊 Agent Evaluation
+
+ShopAI includes an evaluation system to verify whether the agent selects the correct tools for different queries.
+
+Example evaluation cases:
+
+"I want organic honey under $20"
+→ search_products
+
+"Find honey under $15"
+→ search_products
+
+"Show me my previous orders"
+→ order_history
+
+"What are my saved shopping preferences?"
+→ get_preferences
+🏗️ Architecture
+                    ┌─────────────────────┐
+                    │      User           │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │     Streamlit       │
+                    │       App           │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │     Guardrails      │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │    AI Shopping      │
+                    │       Agent         │
+                    └──────────┬──────────┘
+                               │
+              ┌────────────────┼────────────────┐
+              │                │                │
+              ▼                ▼                ▼
+      ┌──────────────┐ ┌──────────────┐ ┌──────────────┐
+      │   Product    │ │   Memory &   │ │    Image     │
+      │   Search     │ │    Orders    │ │   Analysis   │
+      └──────┬───────┘ └──────┬───────┘ └──────┬───────┘
+             │                │                │
+             └────────────────┼────────────────┘
+                              ▼
+                     ┌─────────────────┐
+                     │     SQLite      │
+                     │    Database     │
+                     └─────────────────┘
+🧰 Tech Stack
+Technology	Purpose
+Python	Core programming language
+Streamlit	Web application interface
+LangChain	LLM and tool integration
+LangGraph	Agent orchestration
+Groq	LLM and vision inference
+GPT-OSS-120B	General-purpose agent reasoning
+Qwen3.8-27B	Image/product analysis
+SQLite	Database
+SQL	Data querying
+Python-dotenv	Environment variable management
+Requests	API requests
+Pillow	Image processing
+📁 Project Structure
+store_agent/
 │
-
 ├── app.py
-
-├── shopping\_agent.py
-
-├── reviews\_api.py
-
-├── setup\_db.py
-
-├── migrate\_db.py
-
+├── shopping_agent.py
+├── reviews_api.py
+├── setup_db.py
+├── store.db
 ├── memory.py
-
-├── guardrails.py
-
+├── migrate_db.py
 ├── evals.py
-
+├── guardrails.py
 ├── requirements.txt
-
 ├── README.md
-
 ├── .gitignore
-
 │
+├── resources/
+│
+└── .env
+📄 File Overview
+app.py
 
-└── resources/
+Streamlit frontend responsible for:
 
-&#x20;   └── ...
+User interface
+Chat interface
+User selection
+New user creation
+Image uploads
+Agent interaction
+Session management
+shopping_agent.py
 
-```
+Contains the main AI shopping agent and its tools.
 
+Tools include:
 
+search_products
+get_rating
+order_history
+get_preferences
+save_preferences
+checkout
+describe_product_image
+memory.py
 
-\---
+Handles user-specific persistent information.
 
+It manages:
 
+Current user
+Order history
+User preferences
+Preference updates
+guardrails.py
 
-\# 📄 File Overview
+Controls whether incoming requests are shopping-related.
 
+It prevents the assistant from being used as a general-purpose chatbot.
 
+reviews_api.py
 
-\### `app.py`
+Handles product review-related functionality.
 
-Streamlit frontend responsible for the user interface, sessions, user selection, chat, image uploads, and agent interaction.
-
-
-
-\### `shopping\_agent.py`
-
-Core AI agent containing the LLM configuration, agent creation, shopping tools, checkout, memory tools, and image analysis.
-
-
-
-\### `memory.py`
-
-Handles user accounts, order history, shopping preferences, and current-user state.
-
-
-
-\### `guardrails.py`
-
-Contains the shopping-focused guardrail system.
-
-
-
-\### `reviews\_api.py`
-
-Handles product review and rating functionality.
-
-
-
-\### `setup\_db.py`
+setup_db.py
 
 Creates and initializes the SQLite database.
 
+migrate_db.py
 
+Handles database migrations such as adding:
 
-\### `migrate\_db.py`
+Users
+User preferences
+User IDs to orders
+evals.py
 
-Handles database changes and migrations.
+Contains evaluation cases used to test whether the agent chooses the correct tool.
 
+requirements.txt
 
+Contains the Python dependencies required to run the project.
 
-\### `evals.py`
+🗄️ Database
 
-Contains evaluation logic for testing agent tool selection.
-
-
-
-\---
-
-
-
-\# 🗄️ Database
-
-
-
-ShopAI uses \*\*SQLite\*\* for local data persistence.
-
-
+ShopAI uses SQLite for persistent storage.
 
 Main tables include:
 
-
-
-```text
-
 products
-
 reviews
-
 orders
-
 users
+user_preferences
+Products
 
-user\_preferences
+Stores product information such as:
 
-```
+Product ID
+Product name
+Price
+Organic status
+Reviews
 
+Stores product reviews and ratings.
 
+Orders
 
-\### Users
+Stores:
 
+Order ID
+Product ID
+Product name
+Price
+Order date
+User ID
+Users
 
+Stores:
 
-```text
+User ID
+User name
+User Preferences
 
-id
+Stores:
 
-name
+User ID
+Organic preference
+Maximum preferred price
+⚙️ Installation
+1. Clone the Repository
+git clone https://github.com/Nitin-sounkaria/ShopAI_project.git
 
-```
+Move into the project directory:
 
+cd ShopAI_project
+2. Create a Virtual Environment
 
-
-\### User Preferences
-
-
-
-```text
-
-user\_id
-
-prefers\_organic
-
-max\_price
-
-```
-
-
-
-\### Orders
-
-
-
-```text
-
-id
-
-product\_id
-
-product\_name
-
-price
-
-ordered\_at
-
-user\_id
-
-```
-
-
-
-\---
-
-
-
-\# 🔧 Installation
-
-
-
-\## 1. Clone the Repository
-
-
-
-```bash
-
-git clone https://github.com/Nitin-sounkaria/ShopAI\_project.git
-
-cd ShopAI\_project
-
-```
-
-
-
-\## 2. Create a Virtual Environment
-
-
-
-On Windows:
-
-
-
-```powershell
+Windows:
 
 python -m venv .venv
 
-```
-
-
-
 Activate it:
 
-
-
-```powershell
-
-.venv\\Scripts\\activate
-
-```
-
-
-
-\## 3. Install Dependencies
-
-
-
-```powershell
-
+.venv\Scripts\activate
+3. Install Dependencies
 pip install -r requirements.txt
+🔑 Environment Variables
 
-```
+Create a .env file in the project root.
 
+GROQ_API_KEY=your_groq_api_key
 
+Never commit your actual API key to GitHub.
 
-\---
+The .gitignore file is configured to prevent .env from being uploaded.
 
+🗃️ Initialize the Database
 
+Run:
 
-\# 🔐 Environment Variables
+python setup_db.py
 
+If database migrations are required:
 
+python migrate_db.py
+▶️ Run the Application
 
-Create a `.env` file inside the project directory:
-
-
-
-```env
-
-GROQ\_API\_KEY=your\_groq\_api\_key\_here
-
-```
-
-
-
-\*\*Never commit your real `.env` file or API keys to GitHub.\*\*
-
-
-
-\---
-
-
-
-\# 🗃️ Database Setup
-
-
-
-Initialize the database:
-
-
-
-```powershell
-
-python setup\_db.py
-
-```
-
-
-
-If a migration is required:
-
-
-
-```powershell
-
-python migrate\_db.py
-
-```
-
-
-
-\---
-
-
-
-\# ▶️ Run the Application
-
-
-
-Start the Streamlit application:
-
-
-
-```powershell
+Start Streamlit:
 
 streamlit run app.py
 
-```
-
-
-
-\---
-
-
-
-\# 💬 Example Conversations
-
-
-
-\### Product Search
-
-
-
-```text
-
-Find organic honey under $20.
-
-```
-
-
-
-\### Price Search
-
-
-
-```text
-
-Show me honey under $15.
-
-```
-
-
-
-\### Product Rating
-
-
-
-```text
-
-What is the rating of Organic Raw Honey?
-
-```
-
-
-
-\### Order History
-
-
-
-```text
-
-Show me my previous orders.
-
-```
-
-
-
-\### Preferences
-
-
-
-```text
-
-What are my saved shopping preferences?
-
-```
-
-
-
-\### Save Preferences
-
-
-
-```text
-
-I prefer organic products and my maximum budget is $20.
-
-```
-
-
-
-\### Purchase
-
-
-
-```text
-
-I want to buy Organic Raw Honey.
-
-```
-
-
-
-\### Image Search
-
-
-
-Upload an image and ask:
-
-
-
-```text
-
-Find products similar to this image.
-
-```
-
-
-
-\---
-
-
-
-\# 🧠 Agent Tools
-
-
-
-The ShopAI agent can use different tools depending on the user's request.
-
-
-
-```text
-
-&#x20;                   User Request
-
-&#x20;                        │
-
-&#x20;                        ▼
-
-&#x20;                 ┌─────────────┐
-
-&#x20;                 │  ShopAI     │
-
-&#x20;                 │   Agent     │
-
-&#x20;                 └──────┬──────┘
-
-&#x20;                        │
-
-&#x20;         ┌──────────────┼──────────────┐
-
-&#x20;         │              │              │
-
-&#x20;         ▼              ▼              ▼
-
-&#x20;search\_products    get\_rating    order\_history
-
-&#x20;         │              │              │
-
-&#x20;         ▼              ▼              ▼
-
-&#x20;     Products         Reviews        Orders
-
-
-
-&#x20;         ┌──────────────┼──────────────┐
-
-&#x20;         │              │              │
-
-&#x20;         ▼              ▼              ▼
-
-&#x20;get\_preferences  save\_preferences   checkout
-
-&#x20;         │              │              │
-
-&#x20;         ▼              ▼              ▼
-
-&#x20;     User Data       User Data        Order
-
-```
-
-
-
-\### Available Tools
-
-
-
-\- `search\_products` — Searches the store database.
-
-\- `get\_rating` — Retrieves product rating information.
-
-\- `order\_history` — Retrieves the current user's previous orders.
-
-\- `get\_preferences` — Retrieves saved shopping preferences.
-
-\- `save\_preferences` — Stores or updates user preferences.
-
-\- `checkout` — Creates a new order for the current user.
-
-\- `describe\_product\_image` — Analyzes an uploaded product image.
-
-
-
-\---
-
-
-
-\# 🛡️ Guardrails
-
-
-
-The application uses a shopping-focused guardrail.
-
-
-
-For example:
-
-
-
-```text
-
+The application will open in your browser.
+
+💬 Example Conversations
+Product Search
+User:
 Find organic honey under $20
 
-```
+ShopAI searches the available products and returns matching products.
 
+Product Rating
+User:
+What is the rating of Organic Raw Honey?
 
+ShopAI retrieves the product rating.
 
-is accepted.
+Order History
+User:
+Show me my previous orders
 
+ShopAI retrieves the current user's order history.
 
+Preferences
+User:
+What are my saved shopping preferences?
 
-An unrelated request such as:
+ShopAI retrieves the user's saved preferences.
 
+Saving Preferences
+User:
+I prefer organic products and I don't want to spend more than $20.
 
+ShopAI can save these preferences for future shopping interactions.
 
-```text
+Checkout
+User:
+Order Organic Raw Honey
 
-Write me a poem about space.
+The agent identifies the product and uses the checkout tool to create the order.
 
-```
+Image Search
+User:
+Find products similar to this image.
 
+The user uploads an image and ShopAI uses the vision model to analyze it and search for similar products.
 
+🧠 Agent Tools
 
-can be rejected with a shopping-focused response.
+The AI agent has access to multiple tools.
 
+Tool	Purpose
+search_products	Search products
+get_rating	Retrieve ratings/reviews
+order_history	Retrieve user's orders
+get_preferences	Retrieve saved preferences
+save_preferences	Save user preferences
+checkout	Create a new order
+describe_product_image	Analyze an uploaded product image
 
+The agent decides which tool to use based on the user's request.
 
-The purpose is to keep the agent aligned with its intended domain.
+🛡️ Security
 
+The project follows several basic security practices.
 
+API Keys
 
-\---
+API keys are stored in .env rather than directly inside source code.
 
+Git Protection
 
+.gitignore prevents sensitive files from being committed.
 
-\# 📊 Evaluation
+Ignored files include:
 
+.env
+*.db
+.venv/
+__pycache__/
+uploads/
+Database
 
+User-specific information is associated with a user ID to keep orders and preferences separated.
 
-The project contains basic evaluations for agent tool selection.
+🧪 Evaluation
 
+The project includes an evaluation script:
 
+python evals.py
+
+The evaluation checks whether the agent selects the expected tool for different shopping requests.
 
 Example:
 
-
-
-```text
-
-Query:
-
-"I want organic honey under $20"
-
-
-
-Expected:
-
-search\_products
-
-```
-
-
-
-```text
-
-Query:
-
-"Show me my previous orders"
-
-
-
-Expected:
-
-order\_history
-
-```
-
-
-
-```text
-
-Query:
-
-"What are my saved shopping preferences?"
-
-
-
-Expected:
-
-get\_preferences
-
-```
-
-
-
-These tests help verify that the agent chooses the appropriate tool for different requests.
-
-
-
-\---
-
-
-
-\# 🔒 Security
-
-
-
-The project uses `.gitignore` to prevent sensitive and local files from being committed.
-
-
-
-Examples:
-
-
-
-```text
-
-.env
-
-\*.db
-
-\_\_pycache\_\_/
-
-.venv/
-
-```
-
-
-
-API keys should always be stored in environment variables.
-
-
-
-\*\*Never commit your real API key to GitHub.\*\*
-
-
-
-\---
-
-
-
-\# 🧪 Development Workflow
-
-
-
-```text
-
-1\. Modify the agent/tools
-
-&#x20;         ↓
-
-2\. Test locally
-
-&#x20;         ↓
-
-3\. Run evaluation tests
-
-&#x20;         ↓
-
-4\. Test Streamlit application
-
-&#x20;         ↓
-
-5\. git add .
-
-&#x20;         ↓
-
-6\. git commit
-
-&#x20;         ↓
-
-7\. git push
-
-```
-
-
-
-\---
-
-
-
-\# 🔮 Future Improvements
-
-
-
-\- \[ ] RAG-based product knowledge
-
-\- \[ ] Vector database integration
-
-\- \[ ] Semantic product search
-
-\- \[ ] Product embeddings
-
-\- \[ ] Better conversational memory
-
-\- \[ ] Personalized recommendation ranking
-
-\- \[ ] Real-time inventory management
-
-\- \[ ] Real payment gateway integration
-
-\- \[ ] Production authentication
-
-\- \[ ] Cloud database deployment
-
-\- \[ ] Agent observability
-
-\- \[ ] Advanced agent evaluation
-
-\- \[ ] Automated evaluation pipelines
-
-\- \[ ] Improved multimodal product understanding
-
-\- \[ ] Cloud deployment
-
-
-
-\---
-
-
-
-\# 🎯 What This Project Demonstrates
-
-
-
-This project demonstrates practical implementation of:
-
-
-
-\- Agentic AI
-
-\- LLM-powered agents
-
-\- Tool calling
-
-\- LangChain
-
-\- LangGraph
-
-\- Prompt engineering
-
-\- AI application development
-
-\- Persistent memory
-
-\- User-specific state
-
-\- SQL and database integration
-
-\- SQLite
-
-\- AI guardrails
-
-\- Multimodal AI
-
-\- Vision models
-
-\- Agent evaluation
-
-\- Streamlit
-
-\- API integration
-
-\- Environment variable management
-
-
-
-\---
-
-
-
-\# 📚 Key Learning Concept
-
-
-
-The project explores how an LLM can move beyond simple question answering and interact with external systems.
-
-
-
-The agent follows a workflow similar to:
-
-
-
-```text
-
-Understand User Request
-
-&#x20;       ↓
-
-Determine Required Action
-
-&#x20;       ↓
-
-Select Appropriate Tool
-
-&#x20;       ↓
-
-Interact with Database / API
-
-&#x20;       ↓
-
-Process Result
-
-&#x20;       ↓
-
-Generate Natural Language Response
-
-```
-
-
-
-This is the core idea behind building practical \*\*Agentic AI applications\*\*.
-
-
-
-\---
-
-
-
-\# 👨‍💻 Author
-
-
-
-\## Nitin Sounkaria
-
-
-
-\*\*B.Tech – Information Technology\*\*
-
-
-
-GitHub:  
+Input:
+I want organic honey under $20
+
+Expected tool:
+search_products
+🔄 Development Workflow
+
+Typical development workflow:
+
+1. Modify code
+      ↓
+2. Run application
+      ↓
+3. Test agent
+      ↓
+4. Run evaluations
+      ↓
+5. Fix issues
+      ↓
+6. Git commit
+      ↓
+7. Git push
+🚧 Future Improvements
+
+Potential improvements for ShopAI include:
+
+Real e-commerce API integration
+Real payment gateway integration
+Delivery tracking
+Product recommendations
+Semantic/vector search
+RAG-based product knowledge
+Conversation summarization
+Better image similarity search
+Advanced user profiles
+Product inventory management
+Admin dashboard
+Production authentication
+Cloud database deployment
+Deployment on a cloud platform
+Better agent observability and tracing
+More comprehensive agent evaluations
+🎯 Learning Outcomes
+
+This project demonstrates practical experience with:
+
+Agentic AI
+LLM tool calling
+LangChain
+LangGraph
+Prompt engineering
+Function/tool design
+AI agents
+Vision models
+SQLite
+SQL
+Persistent memory
+Multi-user sessions
+Guardrails
+Streamlit
+API integration
+Agent evaluation
+Git and GitHub
+Environment variable management
+📌 Why This Project?
+
+ShopAI was built to explore how Agentic AI can be used in real-world applications rather than simply creating a basic chatbot.
+
+The system combines:
+
+LLM
++
+Tools
++
+Memory
++
+Database
++
+Guardrails
++
+Vision
++
+Evaluation
+
+to create a practical AI shopping assistant capable of taking actions based on user requests.
+
+👨‍💻 Author
+
+Nitin Sounkaria
+
+B.Tech – Information Technology
+
+GitHub:
 
 https://github.com/Nitin-sounkaria
 
+Project:
 
+https://github.com/Nitin-sounkaria/ShopAI_project
 
-\---
+⭐ Project
 
+If you find this project useful, consider giving the repository a ⭐ on GitHub.
 
+📜 License
 
-\# ⭐ Support
-
-
-
-If you find this project useful or interesting, consider giving the repository a ⭐ on GitHub.
-
-
-
-\---
-
-
-
-\## 📌 Project Repository
-
-
-
-https://github.com/Nitin-sounkaria/ShopAI\_project
-
-
-
+This project is intended for educational and portfolio purposes.
