@@ -4,6 +4,13 @@ An **Agentic AI-powered shopping assistant** built with Python, LangChain, LangG
 
 ShopAI can search products, compare prices, check ratings, remember user preferences, access order history, place orders, and understand products from uploaded images.
 
+<img width="1893" height="908" alt="image" src="https://github.com/user-attachments/assets/1bda0467-44b4-4a60-b60a-0804bfb0314a" />
+<img width="1905" height="910" alt="image" src="https://github.com/user-attachments/assets/e7b54d13-9e17-4b1a-ade8-7327fc9c6015" />
+<img width="1917" height="907" alt="image" src="https://github.com/user-attachments/assets/faf6b018-7fdc-4c01-89d9-e502040cff99" />
+
+
+
+
 ---
 
 ## 🚀 Features
