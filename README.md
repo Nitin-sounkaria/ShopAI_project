@@ -33,6 +33,18 @@ This allows users to discover products without having to describe them manually 
 
 <img width="900" height="450" alt="image" src="https://github.com/user-attachments/assets/faf6b018-7fdc-4c01-89d9-e502040cff99" />
 
+### 4. 🧠 User Memory & Preferences
+
+ShopAI can remember a user's previous purchases and retrieve their order history when requested.
+
+For example, a user can ask:
+
+```text
+Show me my past orders.
+
+<img width="1917" height="905" alt="image" src="https://github.com/user-attachments/assets/3ed169c7-0c1b-48ca-be9d-658ebacfab62" />
+
+
 
 
 
