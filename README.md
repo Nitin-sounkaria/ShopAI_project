@@ -39,10 +39,10 @@ ShopAI can remember a user's previous purchases and retrieve their order history
 
 For example, a user can ask:
 
-```text
 Show me my past orders.
 
-<img width="1917" height="905" alt="image" src="https://github.com/user-attachments/assets/3ed169c7-0c1b-48ca-be9d-658ebacfab62" />
+<img width="1917" height="897" alt="image" src="https://github.com/user-attachments/assets/21611814-431f-457f-9c2b-cc3de51e169a" />
+
 
 
 
