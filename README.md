@@ -4,9 +4,34 @@ An **Agentic AI-powered shopping assistant** built with Python, LangChain, LangG
 
 ShopAI can search products, compare prices, check ratings, remember user preferences, access order history, place orders, and understand products from uploaded images.
 
-<img width="1893" height="908" alt="image" src="https://github.com/user-attachments/assets/1bda0467-44b4-4a60-b60a-0804bfb0314a" />
-<img width="1905" height="910" alt="image" src="https://github.com/user-attachments/assets/e7b54d13-9e17-4b1a-ade8-7327fc9c6015" />
-<img width="1917" height="907" alt="image" src="https://github.com/user-attachments/assets/faf6b018-7fdc-4c01-89d9-e502040cff99" />
+## 🏠 1. ShopAI Homepage
+
+The ShopAI homepage provides a simple conversational interface where users can interact with the AI shopping assistant using natural language.
+
+Users can describe what they are looking for, ask about products, check ratings, view their shopping preferences, access previous orders, and place orders through the assistant.
+
+The sidebar also provides the option to upload a product image and search for similar products.
+<img width="900" height="450" alt="image" src="https://github.com/user-attachments/assets/1bda0467-44b4-4a60-b60a-0804bfb0314a" />
+
+## 🛡️ 2. Guardrail Example
+
+ShopAI includes a guardrail mechanism that ensures the assistant stays focused on shopping-related tasks.
+
+When a user asks an unrelated question, the guardrail prevents the request from being passed to the shopping agent and redirects the user toward supported shopping functionality.
+
+This helps keep the AI assistant focused on its intended purpose.
+
+<img width="900" height="450" alt="image" src="https://github.com/user-attachments/assets/e7b54d13-9e17-4b1a-ade8-7327fc9c6015" />
+
+## 🖼️ 3. Find Products Using an Image
+
+ShopAI also supports image-based product discovery.
+
+Users can upload an image of a product through the **Shop by Image** option. The AI analyzes the uploaded image and generates relevant product information that can be used to search the product database for similar products.
+
+This allows users to discover products without having to describe them manually using text.
+
+<img width="900" height="450" alt="image" src="https://github.com/user-attachments/assets/faf6b018-7fdc-4c01-89d9-e502040cff99" />
 
 
 
